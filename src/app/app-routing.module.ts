@@ -7,6 +7,8 @@ import { RegisterComponent } from './components/users/register/register.componen
 import { ProfileComponent } from './components/users/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
 import { PruebaComponent } from './components/users/prueba/prueba.component';
+import { PersonalDataComponent } from './components/users/personal-data/personal-data.component';
+import { RestauranteComponent } from './components/users/restaurante/restaurante/restaurante.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'user/register', component: RegisterComponent },
   {path: 'user/profile', component: ProfileComponent },
   {path: 'user/prueba', component: PruebaComponent },
+  {path: 'user/personal-data', component: PersonalDataComponent },
+  {path: 'user/restaurante/restaurante', component: RestauranteComponent},
   {path: '**', component: Page404Component }
 ];
 

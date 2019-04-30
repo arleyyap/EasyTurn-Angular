@@ -19,6 +19,11 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PruebaComponent } from './components/users/prueba/prueba.component';
+import { PersonalDataComponent } from './components/users/personal-data/personal-data.component';
+import { RestauranteComponent } from './components/users/restaurante/restaurante/restaurante.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -32,14 +37,18 @@ import { PruebaComponent } from './components/users/prueba/prueba.component';
     ProfileComponent,
     RegisterComponent,
     Page404Component,
-    PruebaComponent
+    PruebaComponent,
+    PersonalDataComponent,
+    RestauranteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]
