@@ -23,6 +23,7 @@ import { PersonalDataComponent } from './components/users/personal-data/personal
 import { RestauranteComponent } from './components/users/restaurante/restaurante/restaurante.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireStorageModule,
     HttpClientModule
   ],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

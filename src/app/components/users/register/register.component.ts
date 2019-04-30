@@ -3,6 +3,7 @@ import { AuthService } from './../../../services/auth.service';
 import { Router } from '@angular/router';
 import { Usuarios } from './../../../domain/usuarios';
 import { UsuariosService } from './../../../services/usuarios/usuarios.service';
+import { DataApiService } from './../../../services/data-api.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
   public usuarios: Usuarios;
   public password: string;
 
-  constructor(private router:Router, private authService:AuthService, public usuariosService: UsuariosService) { }
+  constructor(private router:Router, private authService:AuthService,
+     public usuariosService: UsuariosService, private dataApiServive: DataApiService) { }
   tipoUsuario = 1;
 
   ngOnInit() {
@@ -31,8 +33,19 @@ export class RegisterComponent implements OnInit {
     }, error => {
       console.log('Error', error);
     });
+    const data = {
+      apellido: this.usuarios.apellido,
+      contraseña: this.usuarios.contraseña,
+      email: this.usuarios.email,
+      nombre: this.usuarios.nombre,
+      telefono: this.usuarios.telefono.toString(),
+      tipoUsuario: this.usuarios.idtipousuario_Tipousuario.toString()
+    }
     this.authService.registerUser(this.usuarios.email, this.password)
     .then((res) => {
+      this.dataApiServive.createUsuarios(data).then(() => {
+        console.log('Usuario Registrado Correctamente');
+      }).catch(err => console.log('err', err.message ));
       this.router.navigate(['user/prueba']);
     }).catch(  err => console.log('err', err.message));
   }
@@ -48,4 +61,6 @@ export class RegisterComponent implements OnInit {
   onLoginRedirect(): void {
     this.router.navigate(['user/prueba']);
   }
+
+
 }
