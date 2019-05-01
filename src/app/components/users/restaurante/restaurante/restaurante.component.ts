@@ -26,7 +26,7 @@ export class RestauranteComponent implements OnInit {
   urlImagenCompleta : string;
 
   ngOnInit() {
-    this.restaurante = new Restaurante(23,"","",0,"","arleyyap@gmail.com");
+    this.restaurante = new Restaurante(77,"","",0,"","arleyyap@hotmail.com");
   }
 
   onUpload(e) {

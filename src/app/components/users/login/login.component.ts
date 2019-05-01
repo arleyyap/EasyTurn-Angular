@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
+import { DataApiService } from './../../../services/data-api.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     this.authService.loginEmailUser(this.email, this.password)
       .then((res) => {
-        this.onLoginRedirect();
+      this.onLoginRedirect();
       }).catch(err => console.log('err', err.message));
   }
 
@@ -37,6 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginRedirect(): void {
-    this.router.navigate(['user/prueba']);
+    this.router.navigate(['user/restaurante/restaurante']);
   }
 }

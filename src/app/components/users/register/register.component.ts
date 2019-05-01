@@ -38,15 +38,15 @@ export class RegisterComponent implements OnInit {
       contraseña: this.usuarios.contraseña,
       email: this.usuarios.email,
       nombre: this.usuarios.nombre,
-      telefono: this.usuarios.telefono.toString(),
-      tipoUsuario: this.usuarios.idtipousuario_Tipousuario.toString()
+      telefono: this.usuarios.telefono,
+      tipoUsuario: this.usuarios.idtipousuario_Tipousuario
     }
     this.authService.registerUser(this.usuarios.email, this.password)
     .then((res) => {
       this.dataApiServive.createUsuarios(data).then(() => {
         console.log('Usuario Registrado Correctamente');
       }).catch(err => console.log('err', err.message ));
-      this.router.navigate(['user/prueba']);
+      this.onLoginRedirect();
     }).catch(  err => console.log('err', err.message));
   }
 
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onLoginRedirect(): void {
-    this.router.navigate(['user/prueba']);
+    this.router.navigate(['user/restaurante/restaurante']);
   }
 
 
