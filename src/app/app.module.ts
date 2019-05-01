@@ -26,6 +26,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 
+// Administrativo
+import { CajaComponent } from './components/users/administrativo/caja/caja.component';
+import { AdministrativoComponent } from './components/users/administrativo/administrativo/administrativo.component';
+import { FinancieroComponent } from './components/users/administrativo/financiero/financiero.component';
+import { AcademicoComponent } from './components/users/administrativo/academico/academico.component';
+import { RolesComponent } from './components/users/administrativo/roles/roles.component';
+import { gestionarAcademicoComponent } from './components/users/administrativo/gestionarAcademico/gestionarAcademico.component';
+import { gestionarFinancieroComponent } from './components/users/administrativo/gestionarFinanciero/gestionarFinanciero.component';
+import { gestionarCajaComponent } from './components/users/administrativo/gestionarCaja/gestionarCaja.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,10 +50,20 @@ import { AngularFirestore } from '@angular/fire/firestore';
     Page404Component,
     PruebaComponent,
     PersonalDataComponent,
-    RestauranteComponent
+    RestauranteComponent,
+    CajaComponent,
+    AdministrativoComponent,
+    FinancieroComponent,
+    AcademicoComponent,
+    RolesComponent,
+    gestionarAcademicoComponent,
+    gestionarFinancieroComponent,
+    gestionarCajaComponent
   ],
   imports: [
-    BrowserModule,
+
+
+  BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
