@@ -24,7 +24,7 @@
               <tr *ngFor="let turno of turnos">
                 <td>{{turno.data.Turno}}</td>
                 <td>{{turno.data.Nombre}}</td>
-                <button (click)="atendido()">Atendido</button>
+                <button (click)="atendido(turno.id)">Atendido</button>
 
               </tr>
 

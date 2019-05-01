@@ -17,12 +17,17 @@ export class FsService {
   public getTurnos(){
     return this.afs.collection('TurnosCaja').snapshotChanges();
   }
-
-  //Borrar turno
-  public deleteTurno(TurnoId: string){
-    this.afs.doc('TurnosCaja/'+TurnoId).delete();
+  //Obtiene un turno 
+  public getTurno(TurnoId:string){
+    return this.afs.collection('TurnosCaja').doc(TurnoId).snapshotChanges();
 
   }
+   //Borrar turno
+   public deleteTurno(TurnoId){
+    return this.afs.doc(`TurnosCaja/${TurnoId}`).delete(); 
+
+  }
+
 
 
 

@@ -31,12 +31,21 @@ export class gestionarCajaComponent implements OnInit{
       
 
    }
-   atendido(id:string){
-     this._fsService.deleteTurno(id);
-
-
-     console.log("Atendido");
+   atendido(TurnoId){
+    this._fsService.deleteTurno(TurnoId).then(()=>{
+      console.log('Documento Eliminado');
+      console.log("Turnos" + "/" + TurnoId);
+    },(error) =>{
+      console.error(error);
+    }); 
+     
    }
+
+   notificacion(){
+     
+     
+   }
+  
 
   
   
