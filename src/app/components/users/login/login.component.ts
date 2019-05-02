@@ -12,7 +12,7 @@ import { DataApiService } from './../../../services/data-api.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService) { }
+  constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService, private dataApiService: DataApiService) {}
   public email: string;
   public password: string;
   ngOnInit() {
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   onLogin(): void {
     this.authService.loginEmailUser(this.email, this.password)
       .then((res) => {
-      this.onLoginRedirect();
+        console.log(this.dataApiService.buscarUsuario(this.email));
+        //this.onLoginRedirect();
       }).catch(err => console.log('err', err.message));
   }
 
