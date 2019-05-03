@@ -4,9 +4,12 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
   providedIn: 'root'
 })
 export class DataApiService {
-
+  /**
+   * Se inicializa AngularFirestore de Firestore
+   */
   constructor(private afs: AngularFirestore) {
   }
+  data = [];
   /**
    * En el Database de Firebase crear una nueva coleccion (Documento), creando un usuario con los campos de:
    * email, contraseña ,nombre, apellido, telefono y tipo Usuario
@@ -17,20 +20,16 @@ export class DataApiService {
   }) {
     return this.afs.collection('usuarios').add(data);
   }
-
+  /**
+   * Todavia no se ha probado - Deberia buscar por el Id de un Documento y retornar la coleccion
+   */
   public browseUsuario(documentId: string) {
     return this.afs.collection('usuarios').doc(documentId).snapshotChanges();
   }
-
-  public buscarUsuario(email) {
-    console.log('Este es el coreo que entra el metodo de data', email);
-
-    return this.afs.collection('usuarios', ref => ref.where('email', "==", email)).snapshotChanges().subscribe((datausuarios) => {
-      datausuarios.forEach((usuario: any) => {
-        console.log('Data usuario', usuario.payload.doc.data());
-      });
-    }
-
-    );
+  /**
+   *  En la coleccion de usuarios busca y retorna el Documento o Documentos que tenga un campo de email igual al parametro ingresado
+   */
+  public searchUserForEmail(email: string) {
+    return this.afs.collection('usuarios', ref => ref.where('email', '==', email)).snapshotChanges();
   }
 }
