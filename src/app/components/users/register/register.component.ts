@@ -15,39 +15,37 @@ export class RegisterComponent implements OnInit {
   public password: string;
 
   constructor(private router:Router, private authService:AuthService,
-     public usuariosService: UsuariosService, private dataApiServive: DataApiService) { }
+              public usuariosService: UsuariosService, private dataApiServive: DataApiService) { }
   tipoUsuario = 1;
 
   ngOnInit() {
-    this.usuarios = new Usuarios("","",0,"","",this.tipoUsuario);
+    this.usuarios = new Usuarios('', '', 0, '', '', this.tipoUsuario);
   }
 
   onAddUser() {
-    console.log('password', this.password);
-    console.log('Tipo_Usuario', this.tipoUsuario);
     this.usuarios.contraseña = this.password;
-    console.log('Usuarios', this.usuarios);
-    console.log('Usuarios', this.usuarios.email);
+    this.usuarios.idtipousuario_Tipousuario = this.tipoUsuario;
     this.usuariosService.save(this.usuarios).subscribe(resultado => {
-      console.log('Se registro el usuario con exito');
+      console.log('Se registro el usuario con exito en Postgres');
+      const data = {
+        apellido: this.usuarios.apellido,
+        contraseña: this.usuarios.contraseña,
+        email: this.usuarios.email,
+        nombre: this.usuarios.nombre,
+        telefono: this.usuarios.telefono,
+        tipoUsuario: Number(this.usuarios.idtipousuario_Tipousuario)
+      };
+      this.authService.registerUser(this.usuarios.email, this.password)
+    .then((res) => {
+      console.log('Se registro el usuario con exito en el Auth-Service');
+      this.dataApiServive.createUsuarios(data).then(() => {
+        console.log('Usuario Registrado Correctamente en el Database');
+      }).catch(err => console.log('err', err.message ));
+      //this.onLoginRedirect();
+    }).catch(  err => console.log('err', err.message));
     }, error => {
       console.log('Error', error);
     });
-    const data = {
-      apellido: this.usuarios.apellido,
-      contraseña: this.usuarios.contraseña,
-      email: this.usuarios.email,
-      nombre: this.usuarios.nombre,
-      telefono: this.usuarios.telefono,
-      tipoUsuario: this.usuarios.idtipousuario_Tipousuario
-    }
-    this.authService.registerUser(this.usuarios.email, this.password)
-    .then((res) => {
-      this.dataApiServive.createUsuarios(data).then(() => {
-        console.log('Usuario Registrado Correctamente');
-      }).catch(err => console.log('err', err.message ));
-      this.onLoginRedirect();
-    }).catch(  err => console.log('err', err.message));
   }
 
   onLoginGoogle(): void {
