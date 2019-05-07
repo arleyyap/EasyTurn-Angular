@@ -34,13 +34,13 @@ export class ProductoComponent implements OnInit {
   ngOnInit() {
 
     this.producto = new Producto(null, '', '', 0, 0, '', 22);
-    /*this.authService.isAuth().subscribe(user => {
+    this.authService.isAuth().subscribe(user => {
       console.log(user.email.toString())
-      this.usuarioService.findById(user.email.toString()).subscribe((data:any)=>{
+      this.usuarioService.findById('alexaa').subscribe((data: any) => {
         console.log(data);
       });
 
-    });*/
+    });
   }
 
   onUpload(e) {

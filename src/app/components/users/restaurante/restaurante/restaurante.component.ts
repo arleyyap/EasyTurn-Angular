@@ -60,7 +60,7 @@ export class RestauranteComponent implements OnInit {
     console.log('Restaurante', this.restaurante);
     this.restauranteService.save(this.restaurante).subscribe(resultado => {
       this.notificationService.showSuccess('El Restaurante se Registro con Exito', 'Notificación');
-      this.router.navigate(['user/restaurante/producto']);
+      //this.router.navigate(['user/restaurante/producto']);
     }, error => {
       this.notificationService.showError(error.message, 'Error');
     }
