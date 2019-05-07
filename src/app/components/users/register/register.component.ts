@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Usuarios } from './../../../domain/usuarios';
 import { UsuariosService } from './../../../services/usuarios/usuarios.service';
 import { DataApiService } from './../../../services/data-api.service';
+import { NotificationService } from './../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   public password: string;
 
   constructor(private router:Router, private authService:AuthService,
-              public usuariosService: UsuariosService, private dataApiServive: DataApiService) { }
+              public usuariosService: UsuariosService, private dataApiServive: DataApiService,
+              private notificationService: NotificationService) { }
   tipoUsuario = 1;
 
   ngOnInit() {
@@ -40,11 +42,11 @@ export class RegisterComponent implements OnInit {
       console.log('Se registro el usuario con exito en el Auth-Service');
       this.dataApiServive.createUsuarios(data).then(() => {
         console.log('Usuario Registrado Correctamente en el Database');
-      }).catch(err => console.log('err', err.message ));
+      }).catch(err => this.notificationService.showError(err.message, 'Error'));
       //this.onLoginRedirect();
-    }).catch(  err => console.log('err', err.message));
+    }).catch(  err => this.notificationService.showError(err.message, 'Error'));
     }, error => {
-      console.log('Error', error);
+      this.notificationService.showError(error.message, 'Error');
     });
   }
 

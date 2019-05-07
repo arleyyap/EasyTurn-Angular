@@ -25,7 +25,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-
 // Administrativo
 import { CajaComponent } from './components/users/administrativo/caja/caja.component';
 import { AdministrativoComponent } from './components/users/administrativo/administrativo/administrativo.component';
@@ -35,6 +34,13 @@ import { RolesComponent } from './components/users/administrativo/roles/roles.co
 import { gestionarAcademicoComponent } from './components/users/administrativo/gestionarAcademico/gestionarAcademico.component';
 import { gestionarFinancieroComponent } from './components/users/administrativo/gestionarFinanciero/gestionarFinanciero.component';
 import { gestionarCajaComponent } from './components/users/administrativo/gestionarCaja/gestionarCaja.component';
+
+// Notificaciones
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ProductoComponent } from './components/users/restaurante/producto/producto.component';
+
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -58,18 +64,20 @@ import { gestionarCajaComponent } from './components/users/administrativo/gestio
     RolesComponent,
     gestionarAcademicoComponent,
     gestionarFinancieroComponent,
-    gestionarCajaComponent
+    gestionarCajaComponent,
+    ProductoComponent,
+    FooterComponent
   ],
   imports: [
-
-
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
