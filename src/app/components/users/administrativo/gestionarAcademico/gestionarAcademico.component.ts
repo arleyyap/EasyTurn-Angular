@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FsService} from 'src/app/services/fs.service';
+<<<<<<< HEAD
 import { Usuarios } from 'src/app/domain/usuarios';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { map } from 'rxjs/operators';
 
+=======
+>>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
 
 @Component({
     selector: 'app-gestionarAcademico',
@@ -13,8 +16,12 @@ import { map } from 'rxjs/operators';
 })
 export class gestionarAcademicoComponent implements OnInit{
   public turnos = [];
+<<<<<<< HEAD
   public Email;
   constructor(public _fsService:FsService, private authService:AuthService, private dataApi: DataApiService) { }
+=======
+  constructor(public _fsService:FsService) { }
+>>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
 
     ngOnInit(){
       this._fsService.getTurnosAcademico().subscribe((turnosSnapshot)=>{
@@ -27,6 +34,7 @@ export class gestionarAcademicoComponent implements OnInit{
           });
         });
       });
+<<<<<<< HEAD
       
 
     }
@@ -60,4 +68,20 @@ export class gestionarAcademicoComponent implements OnInit{
 }
 
 }
+=======
 
+
+    }
+    atendido(TurnoId){
+      this._fsService.deleteTurnoAcademico(TurnoId).then(()=>{
+        console.log('Documento Eliminado');
+        console.log("Turnos" + "/" + TurnoId);
+      },(error) =>{
+        console.error(error);
+      });
+
+     }
+
+>>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
+
+}

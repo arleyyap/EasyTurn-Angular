@@ -9,7 +9,7 @@ import { Page404Component } from './components/page404/page404.component';
 import { PruebaComponent } from './components/users/prueba/prueba.component';
 import { PersonalDataComponent } from './components/users/personal-data/personal-data.component';
 import { RestauranteComponent } from './components/users/restaurante/restaurante/restaurante.component';
-
+import { ProductoComponent } from './components/users/restaurante/producto/producto.component';
 
 // Administrativo
 import { CajaComponent } from './components/users/administrativo/caja/caja.component';
@@ -21,6 +21,7 @@ import { gestionarAcademicoComponent } from './components/users/administrativo/g
 import { gestionarFinancieroComponent } from './components/users/administrativo/gestionarFinanciero/gestionarFinanciero.component';
 import { gestionarCajaComponent } from './components/users/administrativo/gestionarCaja/gestionarCaja.component';
 
+
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {path: 'offers', component: OffersComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'user/prueba', component: PruebaComponent },
   {path: 'user/personal-data', component: PersonalDataComponent },
   {path: 'user/restaurante/restaurante', component: RestauranteComponent},
+  {path: 'user/restaurante/producto', component: ProductoComponent},
   {path: 'user/administrativo', component: AdministrativoComponent},
   {path: 'user/caja', component: CajaComponent},
   {path: 'user/financiero', component: FinancieroComponent},

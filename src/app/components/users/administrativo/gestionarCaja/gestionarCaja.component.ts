@@ -13,14 +13,18 @@ export class gestionarCajaComponent implements OnInit{
 
   public turnos = [];
 
+<<<<<<< HEAD
   public Email;
+=======
+
+>>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
 
 
   constructor(public _fsService:FsService,  private authService:AuthService , private dataApi:DataApiService) {
 
-    
+
    }
-   
+
 
     ngOnInit(){
       this._fsService.getTurnosCaja().subscribe((turnosSnapshot)=>{
@@ -33,9 +37,10 @@ export class gestionarCajaComponent implements OnInit{
           });
         });
       });
-      
+
 
    }
+<<<<<<< HEAD
 
    DeleteToken(id, TurnoId){
     
@@ -69,23 +74,40 @@ export class gestionarCajaComponent implements OnInit{
 
   }
   
+=======
+   atendido(TurnoId){
+    this._fsService.deleteTurnoCaja(TurnoId).then(()=>{
+      console.log('Documento Eliminado');
+      console.log("Turnos" + "/" + TurnoId);
+    },(error) =>{
+      console.error(error);
+    });
 
-  
-  
-   
+   }
+
+   notificacion(){
+
+
+   }
+>>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
 
 
 
-    
-     
-
-      
 
 
 
 
-    
-    
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

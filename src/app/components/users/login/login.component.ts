@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
 import { DataApiService } from './../../../services/data-api.service';
 import { map } from 'rxjs/operators';
+import { NotificationService } from './../../../services/notification/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
    *  Se inicializa el servicio de DataApiService
    */
   constructor(public afAuth: AngularFireAuth, private router: Router,
-              private authService: AuthService, private dataApiService: DataApiService) {}
+              private authService: AuthService, private dataApiService: DataApiService,
+              private notificationService: NotificationService) {}
   public email: string;
   public password: string;
 
@@ -42,18 +44,20 @@ export class LoginComponent implements OnInit {
             };
             if (data.tipoUsuario == 1) {
               console.log('Bienvenido Tipo de Usuario Restaurante');
+              this.notificationService.showSuccess('Bienvenido Tipo de Usuario Restaurante', 'Notificación');
               this.router.navigate(['user/restaurante/restaurante']);
             } else if (data.tipoUsuario == 2) {
               console.log('Bienvenido Tipo de Usuario Administrativo');
+              this.notificationService.showSuccess('Bienvenido Tipo de Usuario Administrativo', 'Notificación');
               this.router.navigate(['user/administrativo']);
             } else {
-              console.log('TU NO PUEDES ENTRAR');
+              this.notificationService.showWarning('No estas autorizado para entrar', 'Notificación');
             }
           });
         }))
         .subscribe(exercices => {
         });
-      }).catch(err => console.log('err', err.message));
+      }).catch(err => this.notificationService.showError(err.message, 'Error'));
   }
 
   onLoginGoogle(): void {

@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Restaurante } from 'src/app/domain/restaurante';
 import { RestauranteService } from './../../../../services/restaurante/restaurante.service';
 import { AuthService } from './../../../../services/auth.service';
-
+import { NotificationService } from './../../../../services/notification/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurante',
@@ -14,11 +15,8 @@ import { AuthService } from './../../../../services/auth.service';
 })
 export class RestauranteComponent implements OnInit {
   public restaurante: Restaurante;
-  public nombre: string;
-  public descripcion: string;
-  public telefono: number;
-
-  constructor(private storage: AngularFireStorage, public restauranteService: RestauranteService, private authService: AuthService
+  constructor(private storage: AngularFireStorage, public restauranteService: RestauranteService, private authService: AuthService,
+              private notificationService: NotificationService, private router: Router
   ) { }
 
 
@@ -27,10 +25,11 @@ export class RestauranteComponent implements OnInit {
   urlImagenCompleta: string;
 
   ngOnInit() {
-    this.authService.isAuth().subscribe(user =>{
-      console.log('Usuario en NgonInit', user);
+    this.restaurante = new Restaurante(null, '', '', 0, '', '');
+    this.authService.isAuth().subscribe(user => {
+      this.restaurante.email_Usuarios =  user.email.toString();
     });
-    this.restaurante = new Restaurante(1, '', '', 0, '', 'arleyyap@hotmail.com');
+    console.log('Esto es Restaurante', this.restaurante);
   }
 
   onUpload(e) {
@@ -48,22 +47,22 @@ export class RestauranteComponent implements OnInit {
         this.urlImagenCompleta = resolve.toString();
         console.log('Esta es mi ruta absoluta', this.urlImagenCompleta);
       });
+    }, error => {
+      this.notificationService.showError(error.message, 'Error');
     }
     );
 
   }
 
   onAddUser() {
-    console.log('nombre', this.nombre);
-    console.log('descripcion', this.descripcion);
-    console.log('telefono', this.telefono);
     console.log('URL IMAGEN', this.urlImagenCompleta);
     this.restaurante.imagenrestaurante = this.urlImagenCompleta;
     console.log('Restaurante', this.restaurante);
-    this.restauranteService.save(this.restaurante).subscribe(resultado=>{
-      console.log('Se registro con exito');
+    this.restauranteService.save(this.restaurante).subscribe(resultado => {
+      this.notificationService.showSuccess('El Restaurante se Registro con Exito', 'Notificación');
+      //this.router.navigate(['user/restaurante/producto']);
     }, error => {
-      console.log('Error', error);
+      this.notificationService.showError(error.message, 'Error');
     }
     );
   }
