@@ -14,8 +14,14 @@ export class FsService {
    }
 
   //Obtener los turnos
-  public getTurnos(){
+  public getTurnosCaja(){
     return this.afs.collection('TurnosCaja').snapshotChanges();
+  }
+  public getTurnosFinanciero(){
+    return this.afs.collection('TurnosFinanciero').snapshotChanges();
+  }
+  public getTurnosAcademico(){
+    return this.afs.collection('TurnosAcademico').snapshotChanges();
   }
   //Obtiene un turno 
   public getTurno(TurnoId:string){
@@ -23,11 +29,34 @@ export class FsService {
 
   }
    //Borrar turno
-   public deleteTurno(TurnoId){
+   public deleteTurnoCaja(TurnoId){
     return this.afs.doc(`TurnosCaja/${TurnoId}`).delete(); 
 
   }
+  public deleteTurnoFinanciero(TurnoId){
+    return this.afs.doc(`TurnosFinanciero/${TurnoId}`).delete(); 
 
+  }
+  public deleteTurnoAcademico(TurnoId){
+    return this.afs.doc(`TurnosAcademico/${TurnoId}`).delete(); 
+
+  }
+  //Obtener los token Academicos
+  public getTokensAcademicos(){
+    return this.afs.collection('TurnosAcademico_Tokens').snapshotChanges();
+  }
+  public deleteTurnoCajaToken(id){
+    return this.afs.doc(`TurnosCaja_Tokens/${id}`).delete();
+  }
+
+  public deleteTurnoAcademicoToken(id){
+    return this.afs.doc(`TurnosAcademico_Tokens/${id}`).delete();
+  }
+  public deleteTurnoFinancieroToken(id){
+    return this.afs.doc(`TurnosFinanciero_Tokens/${id}`).delete();
+  }
+  
+  
 
 
 

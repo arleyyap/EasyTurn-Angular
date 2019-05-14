@@ -35,6 +35,8 @@ import { RolesComponent } from './components/users/administrativo/roles/roles.co
 import { gestionarAcademicoComponent } from './components/users/administrativo/gestionarAcademico/gestionarAcademico.component';
 import { gestionarFinancieroComponent } from './components/users/administrativo/gestionarFinanciero/gestionarFinanciero.component';
 import { gestionarCajaComponent } from './components/users/administrativo/gestionarCaja/gestionarCaja.component';
+import { AsyncPipe } from '@angular/common';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import { gestionarCajaComponent } from './components/users/administrativo/gestio
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireMessagingModule,
     AngularFireStorageModule,
     HttpClientModule
   ],

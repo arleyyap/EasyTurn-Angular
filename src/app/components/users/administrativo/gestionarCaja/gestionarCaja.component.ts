@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FsService} from 'src/app/services/fs.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { DataApiService } from 'src/app/services/data-api.service';
+import { map } from 'rxjs/operators';
+
 @Component({
     selector: 'app-gestionarCaja',
   templateUrl: './gestionarCaja.component.html',
@@ -9,16 +13,17 @@ export class gestionarCajaComponent implements OnInit{
 
   public turnos = [];
 
-  
+  public Email;
 
-  constructor(public _fsService:FsService) {
+
+  constructor(public _fsService:FsService,  private authService:AuthService , private dataApi:DataApiService) {
 
     
    }
    
 
     ngOnInit(){
-      this._fsService.getTurnos().subscribe((turnosSnapshot)=>{
+      this._fsService.getTurnosCaja().subscribe((turnosSnapshot)=>{
         this._fsService
         this.turnos = [];
         turnosSnapshot.forEach((turnoData: any)=>{
@@ -31,20 +36,38 @@ export class gestionarCajaComponent implements OnInit{
       
 
    }
-   atendido(TurnoId){
-    this._fsService.deleteTurno(TurnoId).then(()=>{
-      console.log('Documento Eliminado');
-      console.log("Turnos" + "/" + TurnoId);
-    },(error) =>{
-      console.error(error);
-    }); 
-     
-   }
 
-   notificacion(){
-     
-     
-   }
+   DeleteToken(id, TurnoId){
+    
+    console.log("va a entrar"+ "este es el id" + id + "y el turno"+ TurnoId);
+      this.dataApi.searchCajaForEmail(id)
+        .pipe(map(docArray => {
+          return docArray.map(doc => { 
+            var  id = doc.payload.doc.id
+          
+            
+            this._fsService.deleteTurnoCajaToken(id).then(()=>{
+              console.log("Entro eliminar");
+              console.log(id);
+            },(error) =>{
+              console.error(error);
+            });
+          });
+        }))
+        .subscribe(exercices => {
+        });
+      
+      this._fsService.deleteTurnoCaja(TurnoId).then(()=>{
+        console.log('Documento Eliminado');
+        console.log("Turnos" + "/" + TurnoId);
+      },(error) =>{
+        console.error(error);
+      }); 
+
+    
+    
+
+  }
   
 
   

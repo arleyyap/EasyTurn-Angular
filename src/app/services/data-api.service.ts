@@ -32,4 +32,14 @@ export class DataApiService {
   public searchUserForEmail(email: string) {
     return this.afs.collection('usuarios', ref => ref.where('email', '==', email)).snapshotChanges();
   }
+
+  public searchCajaForEmail(email: string) {
+    return this.afs.collection('TurnosCaja_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
+  }
+  public searchFinancieroForEmail(email: string) {
+    return this.afs.collection('TurnosFinanciero_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
+  }
+  public searchAcademicoForEmail(email: string) {
+    return this.afs.collection('TurnosAcademico_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
+  }
 }
