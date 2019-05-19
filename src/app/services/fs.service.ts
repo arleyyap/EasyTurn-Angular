@@ -23,27 +23,22 @@ export class FsService {
   public getTurnosAcademico(){
     return this.afs.collection('TurnosAcademico').snapshotChanges();
   }
-<<<<<<< HEAD
-  //Obtiene un turno 
-=======
   //Obtiene un turno
->>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
   public getTurno(TurnoId:string){
     return this.afs.collection('TurnosCaja').doc(TurnoId).snapshotChanges();
 
   }
    //Borrar turno
    public deleteTurnoCaja(TurnoId){
-<<<<<<< HEAD
-    return this.afs.doc(`TurnosCaja/${TurnoId}`).delete(); 
+    return this.afs.doc(`TurnosCaja/${TurnoId}`).delete();
 
   }
   public deleteTurnoFinanciero(TurnoId){
-    return this.afs.doc(`TurnosFinanciero/${TurnoId}`).delete(); 
+    return this.afs.doc(`TurnosFinanciero/${TurnoId}`).delete();
 
   }
   public deleteTurnoAcademico(TurnoId){
-    return this.afs.doc(`TurnosAcademico/${TurnoId}`).delete(); 
+    return this.afs.doc(`TurnosAcademico/${TurnoId}`).delete();
 
   }
   //Obtener los token Academicos
@@ -60,21 +55,8 @@ export class FsService {
   public deleteTurnoFinancieroToken(id){
     return this.afs.doc(`TurnosFinanciero_Tokens/${id}`).delete();
   }
-  
-  
-=======
-    return this.afs.doc(`TurnosCaja/${TurnoId}`).delete();
 
-  }
-  public deleteTurnoFinanciero(TurnoId){
-    return this.afs.doc(`TurnosFinanciero/${TurnoId}`).delete();
 
-  }
-  public deleteTurnoAcademico(TurnoId){
-    return this.afs.doc(`TurnosAcademico/${TurnoId}`).delete();
-
-  }
->>>>>>> 234193b4b0f5706a666eb64ac21905e229a58100
 
 
 

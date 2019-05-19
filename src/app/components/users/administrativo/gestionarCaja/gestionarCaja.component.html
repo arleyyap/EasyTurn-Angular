@@ -1,44 +1,35 @@
 <section id="GestionarAcademico">
   <div class="jumbotron text-center">
-          <h1>Bienvenido CAJA</h1>
-      
-          <div class="dropdown">
-              <button type="button"class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Opciones
-              </button> 
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Gestionar Turno</a>
-                  <a class="dropdown-item" href="#">Cambiar contraseña</a>
-                </div>
-              
-              </div>
-        </div>
+    <h1>Bienvenido CAJA</h1>
+    <div class="dropdown">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        Opciones
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Gestionar Turno</a>
+        <a class="dropdown-item" href="#">Cambiar contraseña</a>
+      </div>
+    </div>
+  </div>
 
-        
-        <div>
-          <table class="table table-hover">
-            <thead>
-              <th>Turno</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Atendido</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let turno of turnos">
-                <td>{{turno.data.Turno}}</td>
-                <td>{{turno.data.Nombre}}</td>
-                <td>{{turno.data.email}}</td>
-                <button (click)=" DeleteToken(turno.data.email,turno.id)" >Atendido</button>
-
-              </tr>
-
-            </tbody>
-
-
-
-          </table>
-       
-        </div>
-        <div>
-          <button routerLink="/user/roles">Salir</button>
-        </div>
+  <div>
+    <table class="table table-hover">
+      <thead>
+        <th>Turno</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Atendido</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let turno of turnos">
+          <td>{{turno.data.Turno}}</td>
+          <td>{{turno.data.Nombre}}</td>
+          <td>{{turno.data.email}}</td>
+          <button (click)=" DeleteToken(turno.data.email,turno.id)">Atendido</button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <button routerLink="/user/roles">Salir</button>
+  </div>

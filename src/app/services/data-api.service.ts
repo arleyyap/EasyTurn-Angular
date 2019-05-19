@@ -32,13 +32,21 @@ export class DataApiService {
   public searchUserForEmail(email: string) {
     return this.afs.collection('usuarios', ref => ref.where('email', '==', email)).snapshotChanges();
   }
-
+  /**
+   * En la coleccion de TurnosCaja_Tokens busca y retorna el documento que tengo cualquier campo de email igual al parametro ingresado
+   */
   public searchCajaForEmail(email: string) {
     return this.afs.collection('TurnosCaja_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
   }
+  /**
+   * En la coleccion de TurnosFinanciero_Tokens busca y retorna el documento que tengo cualquier campo de email igual al parametro ingresado
+   */
   public searchFinancieroForEmail(email: string) {
     return this.afs.collection('TurnosFinanciero_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
   }
+  /**
+   * En la coleccion de TurnosAcademico_Tokens busca y retorna el documento que tengo cualquier campo de email igual al parametro ingresado
+   */
   public searchAcademicoForEmail(email: string) {
     return this.afs.collection('TurnosAcademico_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
   }
