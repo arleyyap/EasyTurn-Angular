@@ -3,6 +3,10 @@ import { FsService } from 'src/app/services/fs.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-gestionarCaja',
@@ -14,7 +18,7 @@ export class gestionarCajaComponent implements OnInit {
   public turnos = [];
   public Email: any;
 
-  constructor(public fsService: FsService, private authService: AuthService, private dataApi: DataApiService) {
+  constructor(private location: Location,private router:Router,public fsService: FsService, private authService: AuthService, private dataApi: DataApiService) {
 
   }
   ngOnInit() {
@@ -49,8 +53,11 @@ export class gestionarCajaComponent implements OnInit {
     this.fsService.deleteTurnoCaja(TurnoId).then(() => {
       console.log('Documento Eliminado');
       console.log('Turnos' + '/' + TurnoId);
+      location.reload();
     }, (error) => {
       console.error(error);
     });
+     
   }
+  
 }

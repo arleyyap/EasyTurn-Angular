@@ -4,6 +4,9 @@ import { Usuarios } from 'src/app/domain/usuarios';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { map } from 'rxjs/operators';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-gestionarAcademico',
@@ -13,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class gestionarAcademicoComponent implements OnInit {
   public turnos = [];
   public Email: any;
-  constructor(public fsService: FsService, private authService: AuthService, private dataApi: DataApiService) { }
+  constructor(private location: Location,private router:Router, public fsService: FsService, private authService: AuthService, private dataApi: DataApiService) { }
 
   ngOnInit() {
     this.fsService.getTurnosAcademico().subscribe((turnosSnapshot) => {
@@ -48,5 +51,7 @@ export class gestionarAcademicoComponent implements OnInit {
     }, (error) => {
       console.error(error);
     });
+    
+     
   }
 }
