@@ -23,8 +23,6 @@ import { gestionarCajaComponent } from './components/users/administrativo/gestio
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'offers', component: OffersComponent },
   {path: 'user/login', component: LoginComponent },
   {path: 'user/register', component: RegisterComponent },
   {path: 'user/profile', component: ProfileComponent },

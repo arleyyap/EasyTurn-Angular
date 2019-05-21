@@ -15,17 +15,18 @@ import { AuthService } from './../../../../services/auth.service';
 export class RolesComponent implements OnInit{
   public administradores : TipoAdmin
   public usuarios: Usuarios
-  
+
   constructor(private router:Router,public tipoAdminService: TipoAdminService,
     private authService:AuthService) { }
 
     ngOnInit(){
+      console.log('Esta es la variable local Administrativo', localStorage.getItem('tipoUsuario'));
       this.administradores = new TipoAdmin(1,'',1);
       this.authService.isAuth().subscribe(user =>{
         this.administradores.email_Usuarios= user.email.toString();
       });
       console.log('Email' , this.administradores)
-      
+
     }
     OnAddRol(){
       this.tipoAdminService.save(this.administradores).subscribe(resultado => {
@@ -33,10 +34,10 @@ export class RolesComponent implements OnInit{
         const data = {
           email: this.administradores.email_Usuarios,
           tipoUsu: this.administradores.idtipousuadmin_Tipousuadmin,
-          
+
         }
     });
-    
+
 }
 }
 

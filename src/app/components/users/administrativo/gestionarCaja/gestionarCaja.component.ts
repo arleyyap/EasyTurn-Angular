@@ -35,6 +35,7 @@ export class gestionarCajaComponent implements OnInit {
       .pipe(map(docArray => {
         return docArray.map(doc => {
           let id = doc.payload.doc.id;
+          console.log('Este es el id',id,'Este es el correo',email);
           this.fsService.deleteTurnoCajaToken(id).then(() => {
             console.log('Entro eliminar');
             console.log(id);
