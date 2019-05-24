@@ -1,0 +1,29 @@
+<section id="turnosRestaurante">
+    <div class="jumbotron text-center">
+      <h1>Turnos</h1>
+    </div>
+  
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <th>Turno</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Pedido</th>
+          <th>Atendido</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let turno of turnos">
+            <td>{{turno.data.Turno}}</td>
+            <td>{{turno.data.Nombre}}</td>
+            <td>{{turno.data.Email}}</td>
+            <td>{{turno.data.Pedido}}</td>
+            <button (click)="turnosRestaurante()" >Atendido</button>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <button routerLink="/user/restaurante">Salir</button>
+    </div>
+  

@@ -55,7 +55,14 @@ export class FsService {
   public deleteTurnoFinancieroToken(id){
     return this.afs.doc(`TurnosFinanciero_Tokens/${id}`).delete();
   }
+  //Obtener turnos restaurante
+  public getTurnosRestaurante(email){
+    return this.afs.collection('TurnosRestaurante', ref => ref.where('Email','==',email)).snapshotChanges();
+  }
+  public getTurnoRestaurante(){
+    return this.afs.collection('TurnosRestaurante').snapshotChanges();
 
+  }
 
 
 

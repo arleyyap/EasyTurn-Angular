@@ -20,6 +20,7 @@ import { AdministrativoComponent } from './components/users/administrativo/admin
 import { gestionarAcademicoComponent } from './components/users/administrativo/gestionarAcademico/gestionarAcademico.component';
 import { gestionarFinancieroComponent } from './components/users/administrativo/gestionarFinanciero/gestionarFinanciero.component';
 import { gestionarCajaComponent } from './components/users/administrativo/gestionarCaja/gestionarCaja.component';
+import { TurnoRestauranteComponent } from './components/users/restaurante/turno-restaurante/turno-restaurante.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'user/gestionarAcademico', component: gestionarAcademicoComponent},
   {path: 'user/gestionarFinanciero', component: gestionarFinancieroComponent},
   {path: 'user/gestionarCaja', component: gestionarCajaComponent},
+  {path: 'user/restaurante/turnoRestaurante', component: TurnoRestauranteComponent},
   {path: '**', component: Page404Component }
 ];
 

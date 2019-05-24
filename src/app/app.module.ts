@@ -43,6 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductoComponent } from './components/users/restaurante/producto/producto.component';
 
 import { FooterComponent } from './components/footer/footer.component';
+import { TurnoRestauranteComponent } from './components/users/restaurante/turno-restaurante/turno-restaurante.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { FooterComponent } from './components/footer/footer.component';
     gestionarFinancieroComponent,
     gestionarCajaComponent,
     ProductoComponent,
-    FooterComponent
+    FooterComponent,
+    TurnoRestauranteComponent
   ],
   imports: [
     BrowserModule,

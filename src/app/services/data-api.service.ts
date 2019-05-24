@@ -50,4 +50,7 @@ export class DataApiService {
   public searchAcademicoForEmail(email: string) {
     return this.afs.collection('TurnosAcademico_Tokens', ref => ref.where('email', '==', email)).snapshotChanges();
   }
+  public searchRestauranteForEmail(email:string){
+    return this.afs.collection('TurnosRestaurante' , ref => ref.where('Email','==',email)).snapshotChanges();
+  }
 }

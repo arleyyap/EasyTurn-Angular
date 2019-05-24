@@ -22,27 +22,30 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUser() {
+    console.log('Este es el tipo de Usuario que entra',this.local)
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
         console.log('user logged');
         if (Number(this.local) === 1) {
+          console.log('Entro restaurante',1)
           this.isLoggedRestaurante = true;
         }
         if (Number(this.local) === 2) {
+          console.log('Entro a administrativo',this.local);
           this.isLoggedAdministrativo = true;
         }
         this.isLogged = true;
       } else {
         console.log('NOT user logged');
         this.isLogged = false;
-        this.isLoggedRestaurante = true;
-        this.isLoggedAdministrativo = true;
+        this.isLoggedRestaurante = false;
+        this.isLoggedAdministrativo = false;
       }
     });
   }
 
   onLogout() {
     this.afsAuth.auth.signOut();
-    localStorage.removeItem('tipoUsuario');
+    this.local = '';
   }
 }
