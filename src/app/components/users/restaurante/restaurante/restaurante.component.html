@@ -43,15 +43,10 @@
                 <br>
                 <button *ngIf="urlImage | async; else btnDisabled" type="submit"
                   class="btn btn-lg btn-primary btn-block">Registrar</button>
-                  <a  routerLink="/user/restaurante/producto">Registrar Producto
-                  </a>
-          
-                      <button  class="btn btn-lg btn-secondary btn-block" routerLink='/user/restaurante/turnoRestaurante'>Turnos</button>
-                  
                 <ng-template #btnDisabled>
                   <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Registrar</button>
                 </ng-template>
-                
+
               </form>
             </div>
           </div>

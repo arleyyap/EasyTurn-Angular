@@ -42,10 +42,12 @@ export class LoginComponent implements OnInit {
               contrasena: doc.payload.doc.data()['contraseña'],
               tipoUsuario: doc.payload.doc.data()['tipoUsuario']
             };
+            localStorage.setItem('tipoUsuario', data.tipoUsuario);
             if (data.tipoUsuario == 1) {
               console.log('Bienvenido Tipo de Usuario Restaurante');
               this.notificationService.showSuccess('Bienvenido Tipo de Usuario Restaurante', 'Notificación');
               this.router.navigate(['user/restaurante/restaurante']);
+
             } else if (data.tipoUsuario == 2) {
               console.log('Bienvenido Tipo de Usuario Administrativo');
               this.notificationService.showSuccess('Bienvenido Tipo de Usuario Administrativo', 'Notificación');

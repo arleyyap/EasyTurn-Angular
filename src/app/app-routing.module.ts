@@ -24,8 +24,6 @@ import { TurnoRestauranteComponent } from './components/users/restaurante/turno-
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'offers', component: OffersComponent },
   {path: 'user/login', component: LoginComponent },
   {path: 'user/register', component: RegisterComponent },
   {path: 'user/profile', component: ProfileComponent },
@@ -41,7 +39,7 @@ const routes: Routes = [
   {path: 'user/gestionarAcademico', component: gestionarAcademicoComponent},
   {path: 'user/gestionarFinanciero', component: gestionarFinancieroComponent},
   {path: 'user/gestionarCaja', component: gestionarCajaComponent},
-  {path: 'user/restaurante/turnoRestaurante', component:TurnoRestauranteComponent},
+  {path: 'user/restaurante/turnoRestaurante', component: TurnoRestauranteComponent},
   {path: '**', component: Page404Component }
 ];
 

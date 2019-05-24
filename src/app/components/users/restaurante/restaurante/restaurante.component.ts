@@ -25,6 +25,7 @@ export class RestauranteComponent implements OnInit {
   urlImagenCompleta: string;
 
   ngOnInit() {
+    console.log('Esta es la variable local restaurante', localStorage.getItem('tipoUsuario'));
     this.restaurante = new Restaurante(null, '', '', 0, '', '');
     this.authService.isAuth().subscribe(user => {
       this.restaurante.email_Usuarios =  user.email.toString();
