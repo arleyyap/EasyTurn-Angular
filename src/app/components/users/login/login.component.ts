@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
             } else if (data.tipoUsuario == 2) {
               console.log('Bienvenido Tipo de Usuario Administrativo');
               this.notificationService.showSuccess('Bienvenido Tipo de Usuario Administrativo', 'Notificación');
-              this.router.navigate(['user/administrativo']);
+              this.router.navigate(['user/roles']);
             } else {
               this.notificationService.showWarning('No estas autorizado para entrar', 'Notificación');
             }

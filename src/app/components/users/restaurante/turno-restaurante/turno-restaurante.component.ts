@@ -22,11 +22,10 @@ export class TurnoRestauranteComponent implements OnInit {
     this.auth.isAuth().subscribe(user =>{
       this.email= user.email.toString();
       console.log("este email es el que entrara"+ this.email)
-      this.fsService.getTurnoRestaurante().subscribe((turnosSnapshot)=>{
+      this.fsService.getTurnosRestaurante(this.email).subscribe((turnosSnapshot)=>{
         console.log('Entroo',this.email)
         this.turnos=[];
         turnosSnapshot.forEach((turnoData:any)=>{
-          console.log(turnoData.payload.doc.data(),'aaaa')
           this.turnos.push({
             id:turnoData.payload.doc.id,
             data: turnoData.payload.doc.data()

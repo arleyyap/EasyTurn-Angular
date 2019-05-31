@@ -59,7 +59,7 @@ export class FsService {
   public getTurnosRestaurante(email){
     return this.afs.collection('TurnosRestaurante', ref => ref.where('Email','==',email)).snapshotChanges();
   }
-  public getTurnoRestaurante(){
+  public getTurnoRestaurante(email){
     return this.afs.collection('TurnosRestaurante').snapshotChanges();
 
   }
