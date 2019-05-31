@@ -16,8 +16,8 @@ export class RolesComponent implements OnInit{
   public administradores : TipoAdmin
   public usuarios: Usuarios
 
-  constructor(private router:Router,public tipoAdminService: TipoAdminService,
-    private authService:AuthService) { }
+  constructor(private router: Router, public tipoAdminService: TipoAdminService,
+    private authService: AuthService) { }
 
     ngOnInit(){
       console.log('Esta es la variable local Administrativo', localStorage.getItem('tipoUsuario'));
@@ -26,19 +26,7 @@ export class RolesComponent implements OnInit{
         this.administradores.email_Usuarios= user.email.toString();
       });
       console.log('Email' , this.administradores)
-
     }
-    OnAddRol(){
-      this.tipoAdminService.save(this.administradores).subscribe(resultado => {
-        console.log('Se registro el usuario con exito en Postgres');
-        const data = {
-          email: this.administradores.email_Usuarios,
-          tipoUsu: this.administradores.idtipousuadmin_Tipousuadmin,
-
-        }
-    });
-
-}
 }
 
 

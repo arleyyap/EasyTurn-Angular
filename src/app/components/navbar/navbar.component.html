@@ -22,10 +22,18 @@
         </a>
       </li>
       <li class="nav-item" *ngIf="isLoggedAdministrativo">
-        <a class="nav-link" routerLink="/user/register">Administrativo
+        <a class="nav-link" routerLink="/user/caja">Caja
         </a>
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="isLoggedAdministrativo">
+        <a class="nav-link" routerLink="/user/financiero">Financiero
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedAdministrativo">
+        <a class="nav-link" routerLink="/user/academico">Academico
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedRestaurante">
         <a class="nav-link" routerLink="/user/restaurante/turnoRestaurante">Lista de Pedidos</a>
       </li>
       <li class="nav-item" *ngIf="!isLogged">
