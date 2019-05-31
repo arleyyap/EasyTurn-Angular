@@ -6,6 +6,7 @@ import { AuthService } from './../../../services/auth.service';
 import { DataApiService } from './../../../services/data-api.service';
 import { map } from 'rxjs/operators';
 import { NotificationService } from './../../../services/notification/notification.service';
+import { NavbarComponent } from './../../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',

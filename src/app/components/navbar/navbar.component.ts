@@ -16,7 +16,6 @@ export class NavbarComponent implements OnInit {
   public isLoggedRestaurante = false;
   public isLoggedAdministrativo = false;
   public local = localStorage.getItem('tipoUsuario');
-
   ngOnInit() {
     this.getCurrentUser();
   }
@@ -25,7 +24,9 @@ export class NavbarComponent implements OnInit {
     console.log('Este es el tipo de Usuario que entra',this.local)
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
+
         console.log('user logged');
+        console.log('Esta es la local: ',this.local,'Esta es la de el localstorage',localStorage.getItem('tipoUsuario'));
         if (Number(this.local) === 1) {
           console.log('Entro restaurante',1)
           this.isLoggedRestaurante = true;
@@ -47,5 +48,6 @@ export class NavbarComponent implements OnInit {
   onLogout() {
     this.afsAuth.auth.signOut();
     this.local = '';
+    localStorage.removeItem('tipoUsuario');
   }
 }

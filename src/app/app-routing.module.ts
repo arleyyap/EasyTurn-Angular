@@ -24,7 +24,7 @@ import { TurnoRestauranteComponent } from './components/users/restaurante/turno-
 
 
 const routes: Routes = [
-  {path: 'user/login', component: LoginComponent },
+  {path: '', component: LoginComponent },
   {path: 'user/register', component: RegisterComponent },
   {path: 'user/profile', component: ProfileComponent },
   {path: 'user/prueba', component: PruebaComponent },
