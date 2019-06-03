@@ -35,4 +35,8 @@ export class RestauranteService {
   public findById(id: string) {
     return this.httpClient.get(this.url + '/getRestaurante/' + id);
   }
+
+  public findRestauranteByUsuario(email: string) {
+    return this.httpClient.get(this.url + '/getRestauranteByUsuario?email=' + email);
+  }
 }

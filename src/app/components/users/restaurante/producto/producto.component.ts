@@ -8,6 +8,7 @@ import { AuthService } from './../../../../services/auth.service';
 import { NotificationService } from './../../../../services/notification/notification.service';
 import { RestauranteService } from './../../../../services/restaurante/restaurante.service';
 import { UsuariosService } from './../../../../services/usuarios/usuarios.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-producto',
@@ -19,8 +20,8 @@ export class ProductoComponent implements OnInit {
 
   constructor(private storage: AngularFireStorage, public productoService: ProductoService, private authService: AuthService,
               private notificationService: NotificationService, public restauranteService: RestauranteService,
-              public usuarioService: UsuariosService
-    ) { }
+              public usuarioService: UsuariosService, private router: Router
+  ) { }
 
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
@@ -28,18 +29,32 @@ export class ProductoComponent implements OnInit {
 
   private extractData(res: Response) {
     let body = res;
-    return body || { };
+    return body || {};
   }
 
   ngOnInit() {
-
-    this.producto = new Producto(null, '', '', 0, 0, '', 22);
-    this.authService.isAuth().subscribe(user => {
-      console.log(user.email.toString())
-      this.usuarioService.findById('alexaa').subscribe((data: any) => {
-        console.log(data);
+    this.authService.isAuth().subscribe(userFirebase => {
+      console.log(userFirebase.email.toString());
+      this.usuarioService.findById(userFirebase.email.toString()).subscribe((userPostgres: any) => {
+        console.log('Esta es la informacion del usuario', userPostgres);
+        this.restauranteService.findRestauranteByUsuario(userFirebase.email.toString()).subscribe((data: any) => {
+          console.log('Estos son los restaurantes que tiene el usuario', data[0]['idrestaurante']);
+          this.producto = new Producto(null, '', '', 0, 0, '', data[0]['idrestaurante']);
+          console.log('Este es el Producto',this.producto);
+        }, error => {
+          this.notificationService.showError(error.message, 'Error');
+          this.notificationService.showWarning(
+            'Esta funcionalidad no se encuentra disponible en este momento debido a problemas de conexión con el Servidor', 'Advertencia');
+          this.router.navigate(['user/restaurante/restaurante']);
+        });
+      }, error => {
+        this.notificationService.showError(error.message, 'Error');
+        this.notificationService.showWarning(
+          'Esta funcionalidad no se encuentra disponible en este momento debido a problemas de conexión con el Servidor', 'Advertencia');
+        this.router.navigate(['user/restaurante/restaurante']);
       });
-
+    }, error => {
+      this.notificationService.showError(error.message, 'Error');
     });
   }
 
@@ -51,26 +66,27 @@ export class ProductoComponent implements OnInit {
     const task = this.storage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).toPromise()
-    .then((res) => {
-      this.urlImage.toPromise().then(resolve => {
-        console.log(resolve);
-        this.urlImagenCompleta = resolve.toString();
-        console.log('Esta es mi ruta absoluta', this.urlImagenCompleta);
-      });
-    }, error => {
-      this.notificationService.showError(error.message, 'Error');
-    }
-    );
+      .then((res) => {
+        this.urlImage.toPromise().then(resolve => {
+          console.log(resolve);
+          this.urlImagenCompleta = resolve.toString();
+          console.log('Esta es mi ruta absoluta', this.urlImagenCompleta);
+        });
+      }, error => {
+        this.notificationService.showError(error.message, 'Error');
+      }
+      );
   }
 
   adicionarProducto() {
     this.producto.imagenproducto = this.urlImagenCompleta;
     console.log('Producto', this.producto);
-    this.productoService.save(this.producto).subscribe(resultado =>{
+    this.productoService.save(this.producto).subscribe(resultado => {
       this.notificationService.showSuccess('El Producto se Registro con Exito', 'Notificación');
     }, error => {
       this.notificationService.showError(error.message, 'Error');
     }
     );
   }
+
 }

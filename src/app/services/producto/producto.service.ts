@@ -35,4 +35,8 @@ export class ProductoService {
   public findById(id: string) {
     return this.httpClient.get(this.url + '/getProductrestaurantes/' + id);
   }
+
+  public findProductoByRestaurante(id: number) {
+    return this.httpClient.get(this.url + '/getProductByRestaurant/' + id);
+  }
 }

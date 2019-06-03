@@ -10,7 +10,7 @@ import { PruebaComponent } from './components/users/prueba/prueba.component';
 import { PersonalDataComponent } from './components/users/personal-data/personal-data.component';
 import { RestauranteComponent } from './components/users/restaurante/restaurante/restaurante.component';
 import { ProductoComponent } from './components/users/restaurante/producto/producto.component';
-
+import { ListaProductoComponent } from './components/users/restaurante/lista-producto/lista-producto.component';
 // Administrativo
 import { CajaComponent } from './components/users/administrativo/caja/caja.component';
 import { FinancieroComponent } from './components/users/administrativo/financiero/financiero.component';
@@ -40,11 +40,12 @@ const routes: Routes = [
   {path: 'user/gestionarFinanciero', component: gestionarFinancieroComponent},
   {path: 'user/gestionarCaja', component: gestionarCajaComponent},
   {path: 'user/restaurante/turnoRestaurante', component: TurnoRestauranteComponent},
+  {path: 'user/restaurante/listaProductos', component: ListaProductoComponent},
   {path: '**', component: Page404Component }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

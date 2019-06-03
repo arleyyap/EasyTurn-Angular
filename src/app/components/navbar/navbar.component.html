@@ -21,6 +21,10 @@
         <a class="nav-link" routerLink="/user/restaurante/producto">Agregar Producto
         </a>
       </li>
+      <li class="nav-item" *ngIf="isLoggedRestaurante">
+        <a class="nav-link" routerLink="/user/restaurante/listaProductos">Lista de Productos
+        </a>
+      </li>
       <li class="nav-item" *ngIf="isLoggedAdministrativo">
         <a class="nav-link" routerLink="/user/caja">Caja
         </a>

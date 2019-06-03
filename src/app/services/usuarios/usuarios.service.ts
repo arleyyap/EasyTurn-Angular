@@ -31,8 +31,8 @@ export class UsuariosService {
     return this.httpClient.get(this.url + '/getDataUsuarios');
   }
 
-  public findById(id: string):Observable<any> {
-    return this.httpClient.get(this.url + '/getUsuarios/' + id);
+  public findById(id: string): Observable<any> {
+    return this.httpClient.get(this.url + '/getUsuarios?email=' + id);
   }
 
 }

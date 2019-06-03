@@ -44,6 +44,7 @@ import { ProductoComponent } from './components/users/restaurante/producto/produ
 
 import { FooterComponent } from './components/footer/footer.component';
 import { TurnoRestauranteComponent } from './components/users/restaurante/turno-restaurante/turno-restaurante.component';
+import { ListaProductoComponent } from './components/users/restaurante/lista-producto/lista-producto.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { TurnoRestauranteComponent } from './components/users/restaurante/turno-
     gestionarCajaComponent,
     ProductoComponent,
     FooterComponent,
-    TurnoRestauranteComponent
+    TurnoRestauranteComponent,
+    ListaProductoComponent
   ],
   imports: [
     BrowserModule,

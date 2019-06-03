@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-center" *ngFor="let head of headElements" scope="col">{{head}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let producto of productos">
+        <th scope="row" align="center" class="align-middle">{{producto.idproductos}}</th>
+        <td align="center" class="align-middle">{{producto.nombreproducto}}</td>
+        <td align="center" class="align-middle">{{producto.descripcionproducto}}</td>
+        <td align="center" class="align-middle">{{producto.cantidadproducto}}</td>
+        <td align="center" class="align-middle">{{producto.precioproducto}}</td>
+        <img src={{producto.imagenproducto}} class="rounded mx-auto d-block" alt="..."  width="200" height="200">
+        <td align="center" class="align-middle"><div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Opciones
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Editar</a>
+              <a class="dropdown-item" (click)="deleteProducto(producto.idproductos)">Eliminar Producto</a>
+            </div>
+          </div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
