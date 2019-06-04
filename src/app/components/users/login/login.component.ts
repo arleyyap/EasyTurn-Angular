@@ -8,6 +8,7 @@ import { map, isEmpty } from 'rxjs/operators';
 import { NotificationService } from './../../../services/notification/notification.service';
 import { NavbarComponent } from './../../navbar/navbar.component';
 import { RestauranteService } from './../../../services/restaurante/restaurante.service';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
   selector: 'app-login',
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
               tipoUsuario: doc.payload.doc.data()['tipoUsuario']
             };
             localStorage.setItem('tipoUsuario', data.tipoUsuario);
+            myForm.resetForm();
             if (data.tipoUsuario == 1) {
               console.log('Bienvenido Tipo de Usuario Restaurante');
               this.notificationService.showSuccess('Bienvenido Tipo de Usuario Restaurante', 'Notificación');
