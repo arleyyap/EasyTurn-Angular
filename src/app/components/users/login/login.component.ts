@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin(): void {
+  onLogin(myForm: NgForm): void {
+    if (myForm.valid === true) {
     this.authService.loginEmailUser(this.email, this.password)
       .then((res) => {
         this.dataApiService.searchUserForEmail(this.email)
@@ -79,7 +80,10 @@ export class LoginComponent implements OnInit {
         .subscribe(exercices => {
         });
       }).catch(err => this.notificationService.showError(err.message, 'Error'));
-  }
+    } else {
+      this.notificationService.showError('Revisa todos los Campos del Formulario', 'Error');
+    }
+    }
 
   onLoginGoogle(): void {
     this.authService.loginGoogleUser()
