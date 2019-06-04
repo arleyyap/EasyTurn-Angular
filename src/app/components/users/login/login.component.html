@@ -1,5 +1,6 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
 </head>
 <section id="login" class="mb-5 mt-5">
   <div class="container">
@@ -19,9 +20,9 @@
                 <div class="form-group">
                   <input [(ngModel)]="password" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
                 </div>
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Inicar Sesión</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-block"> <span class="oi oi-account-login"></span> Inicar Sesión</button>
                 <div class="form-group">
-                  <a routerLink="/user/register" class="form-control login-user">Crear Cuenta</a>
+                  <a routerLink="/user/register" class="form-control login-user"> <span class="oi oi-pencil"></span> Crear Cuenta</a>
                 </div>
               </form>
             </div>

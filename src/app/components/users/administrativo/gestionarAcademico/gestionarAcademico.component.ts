@@ -48,10 +48,11 @@ export class gestionarAcademicoComponent implements OnInit {
     this.fsService.deleteTurnoAcademico(TurnoId).then(() => {
       console.log('Documento Eliminado');
       console.log('Turnos' + '/' + TurnoId);
+      location.reload();
     }, (error) => {
       console.error(error);
     });
-    
-     
+
+
   }
 }

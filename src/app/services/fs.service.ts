@@ -15,13 +15,13 @@ export class FsService {
 
   //Obtener los turnos
   public getTurnosCaja(){
-    return this.afs.collection('TurnosCaja').snapshotChanges();
+    return this.afs.collection('TurnosCaja', ref => ref.orderBy('Turno')).snapshotChanges();
   }
   public getTurnosFinanciero(){
-    return this.afs.collection('TurnosFinanciero').snapshotChanges();
+    return this.afs.collection('TurnosFinanciero', ref => ref.orderBy('Turno')).snapshotChanges();
   }
   public getTurnosAcademico(){
-    return this.afs.collection('TurnosAcademico').snapshotChanges();
+    return this.afs.collection('TurnosAcademico', ref => ref.orderBy('Turno')).snapshotChanges();
   }
   //Obtiene un turno
   public getTurno(TurnoId:string){

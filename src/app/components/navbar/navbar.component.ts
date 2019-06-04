@@ -15,28 +15,25 @@ export class NavbarComponent implements OnInit {
   public isLogged: boolean = false;
   public isLoggedRestaurante = false;
   public isLoggedAdministrativo = false;
-  public isNewRestaurante = false;
-  public local = localStorage.getItem('tipoUsuario');
+  //public isNewRestaurante = false;
+  //public local = localStorage.getItem('tipoUsuario');
   ngOnInit() {
     this.getCurrentUser();
   }
 
   getCurrentUser() {
-    console.log('Este es el tipo de Usuario que entra',this.local)
+    console.log('Este es el tipo de Usuario que entra',localStorage.getItem('tipoUsuario'))
     this.authService.isAuth().subscribe(auth => {
       if (auth) {
         console.log('user logged');
-        console.log('Esta es la local: ',this.local,'Esta es la de el localstorage',localStorage.getItem('tipoUsuario'));
-        if (Number(this.local) === 1) {
+        console.log('Esta es la local: ', localStorage.getItem('tipoUsuario'),'Esta es la de el localstorage',localStorage.getItem('tipoUsuario'));
+        if (Number(localStorage.getItem('tipoUsuario')) === 1) {
           console.log('Entro restaurante',1)
           this.isLoggedRestaurante = true;
         }
-        if (Number(this.local) === 2) {
-          console.log('Entro a administrativo',this.local);
+        if (Number(localStorage.getItem('tipoUsuario')) === 2) {
+          console.log('Entro a administrativo',localStorage.getItem('tipoUsuario'));
           this.isLoggedAdministrativo = true;
-        }
-        if(Number(localStorage.getItem('nuevoRestaurante')) === 1) {
-          this.isNewRestaurante = true;
         }
         this.isLogged = true;
       } else {
@@ -44,15 +41,15 @@ export class NavbarComponent implements OnInit {
         this.isLogged = false;
         this.isLoggedRestaurante = false;
         this.isLoggedAdministrativo = false;
-        this.isNewRestaurante = false;
+        //this.isNewRestaurante = false;
       }
     });
   }
 
   onLogout() {
     this.afsAuth.auth.signOut();
-    this.local = '';
+    //this.local = '';
     localStorage.removeItem('tipoUsuario');
-    localStorage.removeItem('nuevoRestaurante');
+    //localStorage.removeItem('nuevoRestaurante');
   }
 }

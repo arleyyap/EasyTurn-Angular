@@ -7,6 +7,7 @@ import { RestauranteService } from './../../../../services/restaurante/restauran
 import { AuthService } from './../../../../services/auth.service';
 import { NotificationService } from './../../../../services/notification/notification.service';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-restaurante',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 export class RestauranteComponent implements OnInit {
   public restaurante: Restaurante;
   constructor(private storage: AngularFireStorage, public restauranteService: RestauranteService, private authService: AuthService,
-              private notificationService: NotificationService, private router: Router
+              private notificationService: NotificationService, private router: Router, private afsAuth: AngularFireAuth
   ) { }
 
 
@@ -61,10 +62,16 @@ export class RestauranteComponent implements OnInit {
     console.log('Restaurante', this.restaurante);
     this.restauranteService.save(this.restaurante).subscribe(resultado => {
       this.notificationService.showSuccess('El Restaurante se Registro con Exito', 'Notificación');
-      //this.router.navigate(['user/restaurante/producto']);
+      this.router.navigate(['user/restaurante/producto']);
     }, error => {
       this.notificationService.showError(error.message, 'Error');
     }
     );
+  }
+
+  onLogout() {
+    this.afsAuth.auth.signOut();
+    localStorage.removeItem('tipoUsuario');
+    localStorage.removeItem('nuevoRestaurante');
   }
 }

@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
       console.log('Se registro el usuario con exito en el Auth-Service');
       this.dataApiServive.createUsuarios(data).then(() => {
         console.log('Usuario Registrado Correctamente en el Database');
+        this.notificationService.showSuccess('Usuario Registrado Correctamente', 'Notificación');
       }).catch(err => this.notificationService.showError(err.message, 'Error'));
       //this.onLoginRedirect();
     }).catch(  err => this.notificationService.showError(err.message, 'Error'));

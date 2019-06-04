@@ -45,6 +45,7 @@ export class gestionarFinancieroComponent implements OnInit {
     this.fsService.deleteTurnoFinanciero(TurnoId).then(() => {
       console.log('Documento Eliminado');
       console.log('Turnos' + '/' + TurnoId);
+      location.reload();
     }, (error) => {
       console.error(error);
     });

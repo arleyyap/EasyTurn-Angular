@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
 </head>
@@ -34,7 +33,7 @@
                   <div class="custom-file">
                     <input type="file" accept=".png, .jpg" class="custom-file-input" id="inputGroupFile01"
                       aria-describedby="sadas" (change)="onUpload($event)">
-                    <label class="custom-file-label" for="inputGroupFile01">Buscar Archivo</label>
+                    <label class="custom-file-label" for="inputGroupFile01"> <span class="oi oi-magnifying-glass"></span> Buscar Archivo</label>
 
                   </div>
                   <!--- <input type="file"  accept=".png, .jpg" (change)="onUpload($event)"> -->
@@ -51,9 +50,9 @@
                 </div>
                 <br>
                 <button *ngIf="urlImage | async; else btnDisabled" type="submit"
-                  class="btn btn-lg btn-primary btn-block">Registrar</button>
+                  class="btn btn-lg btn-primary btn-block"> <span class="oi oi-pencil"></span> Registrar</button>
                 <ng-template #btnDisabled>
-                  <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Registrar</button>
+                  <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block"> <span class="oi oi-pencil"></span> Registrar</button>
                 </ng-template>
               </form>
             </div>

@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
                   this.router.navigate(['user/restaurante/producto']);
                 } else {
                   console.log('Usted no tiene restaurante');
-                  localStorage.setItem('nuevoRestaurante', '1');
                   this.router.navigate(['user/restaurante/restaurante']);
                 }
                 console.log('Este es el tamaño del restaurante', restaurante['length']);
