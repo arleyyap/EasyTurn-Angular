@@ -18,3 +18,22 @@
 .btn-google{
   background: #dd4b39
 }
+
+h1{
+  font-family: 'Roboto', sans-serif;
+}
+
+input{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+button{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
+a{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}

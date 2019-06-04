@@ -1,3 +1,21 @@
 .table-responsive{
   margin-top: 60px;
 }
+h1{
+  font-family: 'Roboto', sans-serif;
+}
+th{
+  font-family: 'Roboto', sans-serif;
+}
+td{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+button{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+a{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}

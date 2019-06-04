@@ -4,9 +4,10 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
 import { DataApiService } from './../../../services/data-api.service';
-import { map } from 'rxjs/operators';
+import { map, isEmpty } from 'rxjs/operators';
 import { NotificationService } from './../../../services/notification/notification.service';
 import { NavbarComponent } from './../../navbar/navbar.component';
+import { RestauranteService } from './../../../services/restaurante/restaurante.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
    */
   constructor(public afAuth: AngularFireAuth, private router: Router,
               private authService: AuthService, private dataApiService: DataApiService,
-              private notificationService: NotificationService) {}
+              private notificationService: NotificationService,public restauranteService: RestauranteService) {}
   public email: string;
   public password: string;
 
@@ -47,7 +48,25 @@ export class LoginComponent implements OnInit {
             if (data.tipoUsuario == 1) {
               console.log('Bienvenido Tipo de Usuario Restaurante');
               this.notificationService.showSuccess('Bienvenido Tipo de Usuario Restaurante', 'Notificación');
-              this.router.navigate(['user/restaurante/restaurante']);
+              console.log('Este es el correo', data.email);
+              this.restauranteService.findRestauranteByUsuario(data.email).subscribe((restaurante: any) => {
+                console.log('Estos son los restaurantes que tiene el usuario', restaurante);
+                if (restaurante['length'] >= 1) {
+                  console.log('Usted ya tiene un restaurante por lo tanto no puede crear restaurante');
+                  this.router.navigate(['user/restaurante/producto']);
+                } else {
+                  console.log('Usted no tiene restaurante');
+                  localStorage.setItem('nuevoRestaurante', '1');
+                  this.router.navigate(['user/restaurante/restaurante']);
+                }
+                console.log('Este es el tamaño del restaurante', restaurante['length']);
+              }, error => {
+                  this.notificationService.showError(error.message, 'Error');
+                  this.notificationService.showWarning(
+                    'Esta funcionalidad no se encuentra disponible en este momento debido a problemas de conexión con el Servidor', 'Advertencia');
+                });
+
+
 
             } else if (data.tipoUsuario == 2) {
               console.log('Bienvenido Tipo de Usuario Administrativo');

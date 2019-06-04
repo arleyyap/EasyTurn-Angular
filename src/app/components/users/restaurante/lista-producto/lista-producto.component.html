@@ -1,5 +1,13 @@
 <app-navbar></app-navbar>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+</head>
 <div class="table-responsive">
+  <br>
+  <div class=" text-center">
+    <h1>Listado de Productos</h1>
+  </div>
+  <br>
   <table class="table">
     <thead>
       <tr>
@@ -13,16 +21,19 @@
         <td align="center" class="align-middle">{{producto.descripcionproducto}}</td>
         <td align="center" class="align-middle">{{producto.cantidadproducto}}</td>
         <td align="center" class="align-middle">{{producto.precioproducto}}</td>
-        <img src={{producto.imagenproducto}} class="rounded mx-auto d-block" alt="..."  width="200" height="200">
-        <td align="center" class="align-middle"><div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src={{producto.imagenproducto}} class="rounded mx-auto d-block" alt="..." width="200" height="200">
+        <td align="center" class="align-middle">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Opciones
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#">Editar</a>
               <a class="dropdown-item" (click)="deleteProducto(producto.idproductos)">Eliminar Producto</a>
             </div>
-          </div></td>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
