@@ -1,0 +1,57 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+</head>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" routerLink="/user/roles">AdvisingApp</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="mainNavbar">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="!isLogged">
+        <a class="nav-link" routerLink="/user/register">Crear Cuenta
+        </a>
+      </li>
+      <!--<li class="nav-item" *ngIf="isNewRestaurante">
+        <a class="nav-link" routerLink="/user/restaurante/restaurante"> <span class="oi oi-plus"></span> Agregar Restaurante
+        </a>
+      </li>-->
+      <li class="nav-item" *ngIf="isLogged">
+        <a class="nav-link" routerLink="/user/estadistica"> <span class="fa fa-bar-chart"></span> Estadisticas
+        </a>
+      </li>
+    
+      <li class="nav-item" *ngIf="isLogged">
+        <a class="nav-link" routerLink="/user/ingenierias"> <span class="oi oi-laptop"></span> Ingenierias
+        </a>
+      </li>
+     
+      
+      <li class="nav-item" *ngIf="isLogged">
+        <a class="nav-link" routerLink="/user/caja"> <span class="oi oi-dollar"></span> Caja
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLogged">
+        <a class="nav-link" routerLink="/user/financiero"> <span class="oi oi-briefcase"></span> Financiero
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLogged">
+        <a class="nav-link" routerLink="/user/academico"> <span class="oi oi-book"></span> Académico
+        </a>
+      </li> 
+      <li class="nav-item" *ngIf="!isLogged">
+        <a class="nav-link" routerLink="/user/login">Inicar Sesión
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="isLogged">
+        <a href="#" class="nav-link" (click)="onLogout()"> <span class="oi oi-account-logout"></span> Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

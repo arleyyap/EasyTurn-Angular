@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+</head>
+<section id="GestionarAcademico" class="ex1">
+  <div class="jumbotron text-center">
+    <h1>Listado de Turnos</h1>
+    <div class="dropdown">
+    </div>
+  </div>
+  <div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center">Turno</th>
+            <th class="text-center">Nombre Completo</th>
+            <th class="text-center">Atendido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr mdbTableCol x *ngFor="let turno of turnos">
+            <td scope="row" align="center" class="align-middle">{{turno.data.Turno}}</td>
+            <td align="center" class="align-middle">{{turno.data.Nombre}} {{turno.data.Apellido}}</td>
+            <td align="center" class="align-middle">
+                <button type="button" class="btn btn-outline-success"
+                (click)=" DeleteToken(turno.data.email,turno.id)"> <span class="oi oi-check"></span> Atendido</button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

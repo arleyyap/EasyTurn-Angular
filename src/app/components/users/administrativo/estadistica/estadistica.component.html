@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<div>
+    <div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="chart">
+        <button mat-button mat-raised-button color="primary" (click)="CantidadTurnosPedidos()">Cantidad de Turnos</button>
+        <button mat-button mat-raised-button color="primary" (click)="TurnosNoAtendidos()">Turnos No Atentidos</button>
+        <button mat-button mat-raised-button color="primary" (click)="CalificacionServicio()">Calificacion Servicio</button>
+        <button mat-button mat-raised-button color="primary" (click)="TurnoMasSolicitado()">Tipo Turno Mas Solicitado</button>
+
+        <canvas baseChart
+          [data]="CantidadTurnos"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="pieChartColors"
+          [legend]="pieChartLegend">
+        </canvas>
+      </div>
+
+    </div>
+  </div>
+
+  
