@@ -17,57 +17,28 @@ export class RegisterComponent implements OnInit {
   public password: string;
 
   constructor(private router: Router, private authService: AuthService,
-    public usuariosService: UsuariosService, private dataApiServive: DataApiService,
+    public usuariosService: UsuariosService, 
     private notificationService: NotificationService) { }
-  tipoUsuario = 1;
+  tipoUsuario = "";
 
   ngOnInit() {
-    this.usuarios = new Usuarios('', '', 0, '', '', this.tipoUsuario);
+    this.usuarios = new Usuarios('', '', null, '', '', "");
   }
 
   onAddUser(myForm: NgForm) {
     if (myForm.valid === true) {
-      this.usuarios.contraseña = this.password;
-      this.usuarios.idtipousuario_Tipousuario = this.tipoUsuario;
-      this.usuariosService.save(this.usuarios).subscribe(resultado => {
-        console.log('Se registro el usuario con exito en Postgres');
-        const data = {
-          apellido: this.usuarios.apellido,
-          contraseña: this.usuarios.contraseña,
-          email: this.usuarios.email,
-          nombre: this.usuarios.nombre,
-          telefono: this.usuarios.telefono,
-          tipoUsuario: Number(this.usuarios.idtipousuario_Tipousuario)
-        };
-        this.authService.registerUser(this.usuarios.email, this.password)
-          .then((res) => {
-            console.log('Se registro el usuario con exito en el Auth-Service');
-            this.dataApiServive.createUsuarios(data).then(() => {
-              console.log('Usuario Registrado Correctamente en el Database');
-              myForm.resetForm();
-              this.notificationService.showSuccess('Usuario Registrado Correctamente', 'Notificación');
-            }).catch(err => this.notificationService.showError(err.message, 'Error'));
-            //this.onLoginRedirect();
-          }).catch(err => this.notificationService.showError(err.message, 'Error'));
-      }, error => {
-        this.notificationService.showError(error.message, 'Error');
-      });
+      this.usuarios.password = this.password;
+      this.usuarios.tipoUsuario = this.tipoUsuario;
+      this.authService.registerUser(this.usuarios).then(response=>{
+        myForm.resetForm();
+        this.notificationService.showSuccess('Usuario Registrado Correctamente, debes esperar a que un administrador te habilite', 'Notificación');
+      }).catch(error=> this.notificationService.showError(error.message, 'Error'))
+
     } else {
       this.notificationService.showError('Revisa todos los Campos del Formulario', 'Error');
     }
   }
 
-  onLoginGoogle(): void {
-    this.authService.loginGoogleUser()
-      .then((res) => {
-        console.log('resUser', res);
-        this.onLoginRedirect();
-      }).catch(err => console.log('err', err.message));
-  }
-
-  onLoginRedirect(): void {
-    this.router.navigate(['user/restaurante/restaurante']);
-  }
 
 
 }

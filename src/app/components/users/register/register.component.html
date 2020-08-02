@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                   <input type="password" name="password" class="form-control" placeholder="Contraseña"
-                    [(ngModel)]="password" #contasena="ngModel" required minlength="5" maxlength="20" required>
+                    [(ngModel)]="password" #contasena="ngModel" required minlength="6" maxlength="20" required>
                     <div class="error" *ngIf="contasena.touched && !contasena.valid">
                         <div *ngIf="contasena.errors.required">Contraseña es requerido</div>
                         <div *ngIf="contasena.errors.minlength">Contraseña debe ser al menos de {{contasena.errors.minlength.requiredLength}} caracteres</div>
@@ -56,8 +56,9 @@
                 <div class="form-group">
                   <label for="tipoUsuario">Tipo de Usuario:</label>
                   <select id="tipoUsuario" name="tipoUsuario" [(ngModel)]="tipoUsuario" class="form-control">
-                    <option value="1">Restaurante</option>
-                    <option value="2">Administrador</option>
+                    <option value="" disabled>Tipo de docente</option>
+                    <option value="profesor">Profesor</option>
+                    <option value="asesor">Asesor</option>
                   </select>
                 </div>
                 <button type="submit" class="btn btn-lg btn-primary btn-block"> <span class="oi oi-person"></span> Crear Cuenta</button>

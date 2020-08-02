@@ -10,7 +10,8 @@ export const environment = {
     databaseURL: "https://easyturn-efa19.firebaseio.com",
     projectId: "easyturn-efa19",
     storageBucket: "easyturn-efa19.appspot.com",
-    messagingSenderId: "906925505962"
+    messagingSenderId: "906925505962",
+    appId: "1:906925505962:web:6beff9acf865799bf7ffd3"
   }
 };
 
