@@ -18,8 +18,9 @@ export class AuthService {
   registerUser(usuarios): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afsAuth.auth.createUserWithEmailAndPassword(usuarios.email, usuarios.password)
-        .then(response => {
+        .then(async response => {
           delete usuarios["password"];
+          await this.afsAuth.auth.signOut();
           this.firestore.collection('usuarios').doc(response.user.uid).set(JSON.parse(JSON.stringify(usuarios))
           ).then(userData => resolve(userData),
             err => reject(err));
