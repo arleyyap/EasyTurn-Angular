@@ -44,6 +44,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { ChartsModule } from 'ng2-charts';
 import { AdminComponent } from './components/admin/admin.component';
+import { ProgramsComponent } from './components/programs/programs.component';
+import { CreateProgramComponent } from './components/create-program/create-program.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { AdminComponent } from './components/admin/admin.component';
     ChangePasswordComponent,
     EstadisticasComponent,
     AdminComponent,
+    ProgramsComponent,
+    CreateProgramComponent,
   ],
   imports: [
     BrowserModule,

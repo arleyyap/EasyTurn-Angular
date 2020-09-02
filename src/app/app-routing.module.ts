@@ -16,11 +16,15 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProgramsComponent } from './components/programs/programs.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent, canActivate: [AuthGuard], data: { logged: false } },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { logged: true, roles: ['admin'], habilited: true } },
+  { path: 'admin', canActivate: [AuthGuard], data: { logged: true, roles: ['admin'], habilited: true } ,children:[
+    {path:'', component: AdminComponent},
+    {path:'secciones', component:ProgramsComponent}
+  ]},
   {
     path: 'bienvenido', component: DashboardComponent, canActivate: [AuthGuard], data: { logged: true, roles: ['asesor', 'profesor'], habilited: true }, children: [
       { path: '', component: BienvenidoComponent },

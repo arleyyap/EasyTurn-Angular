@@ -15,7 +15,7 @@
                   Something is wrong!
                 </div>
                 <div class="form-group">
-                  <input [(ngModel)]="email" type="email" id="email" #emailLogin="ngModel" name="email" class="form-control" placeholder="Correo Electronico" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                  <input [(ngModel)]="email" type="email" id="email" #emailLogin="ngModel" name="email" class="form-control" placeholder="Correo Electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                   <div class="error" *ngIf="emailLogin.touched && !emailLogin.valid">
                       <div *ngIf="emailLogin.errors.required">Email es requerido</div>
                       <div *ngIf="emailLogin.errors.pattern">Debe ser un correo Electronico</div>
