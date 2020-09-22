@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +17,8 @@ export class GestionarTurnoComponent implements OnInit {
   @ViewChild('cuerpoMensaje') fondovalor: ElementRef;
 
   constructor(private firestore: AngularFirestore, private asfService: AuthService, private route: ActivatedRoute,
-    private angularFireMessaging: AngularFireMessaging, private angularFireAuth: AngularFireAuth, private anm: AngularFireModule) {
+    private angularFireMessaging: AngularFireMessaging, private angularFireAuth: AngularFireAuth, private anm: AngularFireModule, 
+    private cdRef:ChangeDetectorRef) {
   }
 
 
@@ -46,16 +47,20 @@ export class GestionarTurnoComponent implements OnInit {
     var tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
     console.log(firebase.firestore.Timestamp.fromDate(today));
     console.log(firebase.firestore.Timestamp.fromDate(tomorrow));
-    this.asfService.getUser().then(user => {
-      var caja = user.data().tipoUsuario == 'asesor' ?
+    this.asfService.getUser().then(async user => {
+      var caja = await user.data().tipoUsuario == 'asesor' ?
         this.firestore.collection('secciones').doc('cajas').collection('subareas').doc(this.route.snapshot.params['id-caja']).ref :
-        user.data().programa;
+        user.ref;
+        console.log(user.ref);
       this.firestore.firestore.collection('turnos')
         .where('caja', '==', caja)
         //        .where("fecha_atencion", '>=', firebase.firestore.Timestamp.fromDate(today))
         //      .where("fecha_atencion", '<', firebase.firestore.Timestamp.fromDate(tomorrow))
-        .where("eliminado", '==', false).onSnapshot(querySnapshot => {
+        .where("eliminado", '==', false)
+        .onSnapshot(querySnapshot => {
           this.turnos = querySnapshot.docs;
+          this.cdRef.detectChanges();
+
         });
     });
 
