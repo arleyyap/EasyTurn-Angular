@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-gestionar-turno',
   templateUrl: './gestionar-turno.component.html',
@@ -14,6 +15,9 @@ import { AngularFireModule } from '@angular/fire';
 export class GestionarTurnoComponent implements OnInit {
   turnos: Array<any> = [];
   mailPicked: any; turnoPicked: any;
+  estimateTime:any;
+  tipoUsuario = localStorage.getItem('tipoUsuario');
+
   @ViewChild('cuerpoMensaje') fondovalor: ElementRef;
 
   constructor(private firestore: AngularFirestore, private asfService: AuthService, private route: ActivatedRoute,
@@ -37,6 +41,7 @@ export class GestionarTurnoComponent implements OnInit {
 
   ngOnInit() {
     this.getTurnos();
+    this.getTime();
     //    this.requestPermission();
     this.prepareMessage();
   }
@@ -51,14 +56,18 @@ export class GestionarTurnoComponent implements OnInit {
       var caja = await user.data().tipoUsuario == 'asesor' ?
         this.firestore.collection('secciones').doc('cajas').collection('subareas').doc(this.route.snapshot.params['id-caja']).ref :
         user.ref;
-        console.log(user.ref);
       this.firestore.firestore.collection('turnos')
         .where('caja', '==', caja)
-        //        .where("fecha_atencion", '>=', firebase.firestore.Timestamp.fromDate(today))
-        //      .where("fecha_atencion", '<', firebase.firestore.Timestamp.fromDate(tomorrow))
+                .where("fecha_atencion", '>=', firebase.firestore.Timestamp.fromDate(today))
+              .where("fecha_atencion", '<', firebase.firestore.Timestamp.fromDate(tomorrow))
         .where("eliminado", '==', false)
         .onSnapshot(querySnapshot => {
           this.turnos = querySnapshot.docs;
+          querySnapshot.forEach(element => {
+            console.log(element.data())
+            console.log(element.data().nombre)
+            console.log(element.data().apellido)
+          });
           this.cdRef.detectChanges();
 
         });
@@ -109,5 +118,29 @@ export class GestionarTurnoComponent implements OnInit {
   prepareMessage() {
 
 
+  }
+
+  getTime(){
+    this.asfService.getUser().then(async user => {
+      var caja = await user.data().tipoUsuario == 'asesor' ?
+        this.firestore.collection('secciones').doc('cajas').collection('subareas').doc(this.route.snapshot.params['id-caja']).ref :
+        user.ref;
+        caja.onSnapshot(snapshot=>{
+          this.estimateTime = snapshot.data().tiempoEstimado;
+          this.cdRef.detectChanges();
+        })
+    });
+  }
+  changeTime(myForm: NgForm){
+    if(myForm.valid){
+      this.asfService.getUser().then(async user => {
+        var caja = await user.data().tipoUsuario == 'asesor' ?
+          this.firestore.collection('secciones').doc('cajas').collection('subareas').doc(this.route.snapshot.params['id-caja']).ref :
+          user.ref;
+          caja.update({
+            tiempoEstimado:myForm.value.time
+          })
+      }); 
+    }
   }
 }

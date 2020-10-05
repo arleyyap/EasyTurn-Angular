@@ -17,6 +17,7 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProgramsComponent } from './components/programs/programs.component';
+import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 
 
 const routes: Routes = [
@@ -43,9 +44,9 @@ const routes: Routes = [
       { path: '', component: EstadisticasComponent },
     ]
   },
+  { path: 'user/recuperar-contrasena', component: RecuperarContrasenaComponent, canActivate: [AuthGuard], data:{logged:false}},
   { path: 'user/register', component: RegisterComponent, canActivate: [AuthGuard], data: { logged: false } },
   { path: '**', component: Page404Component }
-
 ];
 
 @NgModule({

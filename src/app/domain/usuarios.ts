@@ -5,6 +5,7 @@ export class Usuarios {
     public telefono: number,
     public email: string,
     public password: string,
-    public tipoUsuario: string
+    public tipoUsuario: string,
+    public tiempoEstimado: 15
   ){}
 }

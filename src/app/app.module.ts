@@ -46,6 +46,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AdminComponent } from './components/admin/admin.component';
 import { ProgramsComponent } from './components/programs/programs.component';
 import { CreateProgramComponent } from './components/create-program/create-program.component';
+import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { CreateProgramComponent } from './components/create-program/create-progr
     AdminComponent,
     ProgramsComponent,
     CreateProgramComponent,
+    RecuperarContrasenaComponent,
   ],
   imports: [
     BrowserModule,

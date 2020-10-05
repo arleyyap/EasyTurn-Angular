@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   tipoUsuario = "";
 
   ngOnInit() {
-    this.usuarios = new Usuarios('', '', null, '', '', "");
+    this.usuarios = new Usuarios('', '', null, '', '', "", 15 );
   }
 
   onAddUser(myForm: NgForm) {

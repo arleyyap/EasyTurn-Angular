@@ -24,6 +24,7 @@ export class EstadisticasComponent implements OnInit {
   public pieChartPlugins = [];
   public colors = [];
   public loaded = false;
+  public actual = "cantidad turnos";
   tipoUsuario = localStorage.getItem('tipoUsuario');
 
   constructor(private asfService: AuthService, private firestore: AngularFirestore, private route: ActivatedRoute) {
@@ -32,14 +33,88 @@ export class EstadisticasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CantidadTurnosPedidos();
+    this.CantidadTurnosPedidos(null);
 
   }
 
   // events
-  public async CantidadTurnosPedidos() { //
+  public async CantidadTurnosPedidos(date) { //
+    console.log(date);
+    this.actual = "cantidad turnos";
     this.loaded = false;
-    this.firestore.firestore.collection('turnos').where('atendido', '==', true).get().then(async querys => {
+    var ref;
+    if (date != null) {
+      ref = this.firestore.firestore.collection('turnos').where('atendido', '==', true).where("fecha_atencion", ">=", firebase.firestore.Timestamp.fromDate(date));
+    } else {
+      ref = this.firestore.firestore.collection('turnos').where('atendido', '==', true);
+    }
+    ref.get().then(async querys => {
+      if (querys.docs.length <= 0) {
+        this.pieChartLabels = [];
+        this.pieChartData = [];
+        this.loaded = true;
+        return;
+      }
+      var snapshots = querys.docs.map(doc => { return doc.data() });
+      var filter = snapshots.filter(turn => ((turn.caja.path.match('secciones/cajas/subareas/*/') != null) == (this.tipoUsuario == 'asesor')));
+      if (filter.length <= 0) {
+        this.pieChartLabels = [];
+        this.pieChartData = [];
+        this.loaded = true;
+        return;
+      }
+      if (this.tipoUsuario == 'profesor') {
+        filter = await Promise.all(filter.map(async doc => {
+          //obtengo docente
+          let docente = await doc.caja.get();
+          let arg = docente.data().programa.path.split("/");
+          doc.caja = this.firestore.firestore.collection('secciones').doc(arg[1]);
+          return doc;
+        }));
+      }
+      var agrup = _.sortBy(filter, 'caja.path');
+      var data = {
+        docspath: [],
+        SingleDataSet: [],
+        Label: [],
+      };
+      for (let turno of agrup) {
+        let indexgetted = data.docspath.indexOf(turno.caja.path);
+        if (indexgetted >= 0) {
+          //ya se busco
+          data.SingleDataSet[indexgetted]++;
+        } else {
+          console.log("get turno")
+          console.log(turno);
+          console.log(turno.caja.path);
+          await turno.caja.get().then(doc => {
+            console.log(doc);
+            data.docspath.push(turno.caja.path);
+            data.SingleDataSet.push(1);
+            data.Label.push(doc.data().nombre);
+          });
+        }
+      }
+
+
+      this.pieChartLabels = data.Label;
+      this.pieChartData = data.SingleDataSet;
+      this.loaded = true;
+
+    })
+  }
+
+
+  public TurnosNoAtendidos(date) {
+    this.loaded = false;
+    this.actual = "no atendidos";
+    var ref;
+    if (date != null) {
+      ref = this.firestore.firestore.collection('turnos').where('atendido', '==', false).where("fecha_atencion", ">=", firebase.firestore.Timestamp.fromDate(date));
+    } else {
+      ref = this.firestore.firestore.collection('turnos').where('atendido', '==', false);
+    }
+    ref.get().then(async querys => {
       if (querys.docs.length <= 0) {
         this.pieChartLabels = [];
         this.pieChartData = [];
@@ -89,62 +164,19 @@ export class EstadisticasComponent implements OnInit {
     })
   }
 
-
-  public TurnosNoAtendidos() {
+  public CalificacionServicio(date) {
+    console.log("llega a calificacion sevicio");
     this.loaded = false;
-    this.firestore.firestore.collection('turnos').where('atendido', '==', false).get().then(async querys => {
-      if (querys.docs.length <= 0) {
-        this.pieChartLabels = [];
-        this.pieChartData = [];
-        this.loaded = true;
-        return;
-      }
-      var snapshots = querys.docs.map(doc => { return doc.data() });
-      var filter = snapshots.filter(turn => ((turn.caja.path.match('secciones/cajas/subareas/*/') != null) == (this.tipoUsuario == 'asesor')));
-      if (filter.length <= 0) {
-        this.pieChartLabels = [];
-        this.pieChartData = [];
-        this.loaded = true;
-        return;
-      }
-      if (this.tipoUsuario == 'profesor') {
-        filter = filter.map(doc => {
-          let arr = doc.caja.path.split('/');
-          doc.caja = this.firestore.firestore.collection('secciones').doc(arr[1]);
-          return doc;
-        });
-      }
-      var agrup = _.sortBy(filter, 'caja.path');
-      var data = {
-        docspath: [],
-        SingleDataSet: [],
-        Label: [],
-      };
-      for (let turno of agrup) {
-        let indexgetted = data.docspath.indexOf(turno.caja.path);
-        if (indexgetted >= 0) {
-          //ya se busco
-          data.SingleDataSet[indexgetted]++;
-        } else {
-          await turno.caja.get().then(doc => {
-            data.docspath.push(turno.caja.path);
-            data.SingleDataSet.push(1);
-            data.Label.push(doc.data().nombre);
-          });
-        }
-      }
-
-
-      this.pieChartLabels = data.Label;
-      this.pieChartData = data.SingleDataSet;
-      this.loaded = true;
-
-    })
-  }
-
-  public CalificacionServicio() {
-    this.loaded = false;
-    this.firestore.firestore.collection('comentarios').get().then(querys => {
+    this.actual = "calificacion";
+    console.log(this.actual);
+    var ref;
+    if (date != null) {
+      ref = this.firestore.firestore.collection('comentarios').where("date", ">=", firebase.firestore.Timestamp.fromDate(date));
+    } else {
+      ref = this.firestore.firestore.collection('comentarios');
+    }
+    ref.get().then(querys => {
+      console.log(querys);
       if (querys.docs.length <= 0) {
         this.pieChartLabels = [];
         this.pieChartData = [];
@@ -175,9 +207,18 @@ export class EstadisticasComponent implements OnInit {
     });
   }
 
-  public TurnoMasSolicitado() {
+  public TurnoMasSolicitado(date) {
+    console.log(date);
     this.loaded = false;
-    this.firestore.firestore.collection('turnos').get().then(async querys => {
+    this.actual = "mas solicitado"
+    var ref;
+    if (date != null) {
+      ref = this.firestore.firestore.collection('turnos').where("fecha_atencion", ">=", firebase.firestore.Timestamp.fromDate(date));
+      console.log(ref);
+    } else {
+      ref = this.firestore.firestore.collection('turnos');
+    }
+    ref.get().then(async querys => {
       if (querys.docs.length <= 0) {
         this.pieChartLabels = [];
         this.pieChartData = [];
@@ -198,11 +239,11 @@ export class EstadisticasComponent implements OnInit {
       };
 
       for (let query of querys.docs) {
-        if(query.data().reservado){
+        if (query.data().reservado) {
           data.SingleDataSet[0]++;
-        }else{
+        } else {
           data.SingleDataSet[1]++;
-        } 
+        }
       }
 
 
@@ -211,5 +252,49 @@ export class EstadisticasComponent implements OnInit {
       this.loaded = true;
 
     })
+  }
+  filterDay() {
+    console.log("llega");
+    var today = new Date();
+    var init = new Date(today.getFullYear(), today.getMonth() , today.getDate(), 0, 0, 0);
+    console.log(init);
+    this.aplyFilter(init);
+  }
+  filterWeek() {
+    console.log("llega");
+    var today = new Date();
+    var init = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7, 0, 0, 0);
+    console.log(today);
+    console.log(init);
+    this.aplyFilter(init);
+  }
+  filterMonth() {
+    console.log("llega");
+    var today = new Date();
+    console.log(today);
+    var init = new Date(today.getFullYear(), today.getMonth(), 1, 0, 0, 0);
+    console.log(init);
+    this.aplyFilter(init);
+  }
+  aplyFilter(date) {
+    console.log("getting actual");
+    console.log(this.actual);
+    if(this.actual == "mas solicitado"){
+      this.TurnoMasSolicitado(date);
+
+    }else if(this.actual == "calificacion"){
+      this.CalificacionServicio(date);
+    }else if(this.actual == "no atendidos"){
+      this.TurnosNoAtendidos(date);
+
+    }else{
+      this.CantidadTurnosPedidos(date);
+
+    }
+
+
+
+
+
   }
 }

@@ -1,8 +1,8 @@
 <section id="GestionarAcademico" class="ex1">
-  <div class="jumbotron text-center">
+  <div class="jumbotron text-center position-relative">
     <h1>Listado de Turnos</h1>
-    <div class="dropdown">
-    </div>
+    <button class="btn btn-dark"
+    data-toggle="modal" data-target="#modalTime">{{estimateTime}} minutos</button>
   </div>
 
   <div class="table-responsive">
@@ -19,8 +19,8 @@
       </thead>
       <tbody>
         <tr mdbTableCol *ngFor="let turno of turnos">
-          <td scope="row" align="center" class="align-middle">{{turno.data().turno}}</td>
-          <td align="center" class="align-middle">{{turno.data().fecha_creacion.toDate().toLocaleString()}}</td>
+          <td scope="row" align="center" class="align-middle">{{turno.data().reservado ? "reservado" :turno.data().turno}}</td>
+          <td align="center" class="align-middle">{{turno.data().reservado ? turno.data().fecha_atencion.toDate().toLocaleString() :turno.data().fecha_creacion.toDate().toLocaleString()}}</td>
           <td align="center" class="align-middle">{{turno.data().nombre}} {{turno.data().apellido}}</td>
           <td align="center" class="align-middle">
             <button type="button" class="btn btn-outline-success" (click)="mailPicked = turno"
@@ -83,3 +83,35 @@
         </div>
       </div>
     </div>
+
+        <!-- Modal tiempo estimado -->
+        <div class="modal fade"  id="modalTime" tabindex="-1" role="dialog" aria-labelledby="modalTime" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar tiempo estimado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form" #formCreateProgram="ngForm" enctype="multipart/form-data" (ngSubmit)="changeTime(formCreateProgram)">
+                  <div class="form-group">
+                    <label>Tiempo estimado</label>
+                    <input [(ngModel)]="time" type="number" name="time" #timeModel="ngModel" required min="0"
+                      class="form-control" placeholder="Ingrese el tiempo estimado en minutos" #myinputtime />
+                    <div class="error" *ngIf="(timeModel.touched || clicked) && !timeModel.valid">
+                      <div class="errorModal" *ngIf="timeModel.errors.required">Nombre es requerido</div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                  </div>
+                    </form>
+              </div>
+    
+            </div>
+          </div>
+        </div>
